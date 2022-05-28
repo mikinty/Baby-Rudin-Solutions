@@ -1,0 +1,214 @@
+\chapter{Basic Topology}
+
+The definitions in 2.18 are crucial to understanding the whole chapter, so it's important that you pay attention to those. Of course, first time reading through, it's ok to not entirely digest them and look back for reference.
+
+I thought some of the proofs were pretty hard to understand, so I was hoping that doing some of the problems would help me solidify the concept of open, closed and compact sets.
+
+Some gotchas:
+\begin{itemize}
+  \item It sounds obvious now, but if a set has no limit points, then it is closed! This is because it's vacuously true that it contains all of its limit points.
+  \item If you have to prove a set is closed, you can also try to instead prove that the complement is open; it may be much easier the other way. This also applies to open sets.
+\end{itemize}
+
+\section{Compactness}
+\label{chap2:compactness}
+Compactness is a definition that I thoroughly struggled with, so here is how I understood it:
+\begin{itemize}
+  \item A set is compact if every open cover contains a finite subcover.
+  \item This means given \textit{any} open cover, so some $\cup_\alpha G_\alpha$ where $G_\alpha$ are all open and we can have an infinite cover here, we can find some finite subset of these $G_\alpha$ such that their union completely contains $K$.
+  \item A good way to illustrate how this work, is consider $(0, 1)$. We can come up with an open cover as
+        \begin{equation}
+          (0, 1) = \bigcup_{i = 1}^\infty \pa{\frac{1}{i}, 1}
+        \end{equation}
+        No matter what finite subcover you choose here, you will have some maximum $N$ such that $pa{\frac{1}{N}, 1}$ is the widest interval you chose, and you will be missing the elements $0 < x < \frac{1}{N}$, so any finite subcover will not cover $K$.
+  \item Another thing to notice is that the open cover and subcover are covers, meaning they can also ``over''-cover the set $K$, and include elements that are not in $K$. This is important!
+  \item I think this definition is hard to understand because you have to consider a ``nested statement''. In this case, we have to consider for all open covers, and then within each open cover, we have to show that there exists a finite subcover.
+\end{itemize}
+
+\section*{Exercises}
+
+\bx{
+  It is vacuously true that every element of the empty set is in any other set.
+}
+
+\bx{
+  I'm not actually sure how to use the hint given in the text, but my thinking was that for every $n$, we know the set of polynomials in the form
+  \begin{equation}
+    a_0z^n + a_1 z^{n-1} + \cdots + a_{n-1}z + a_n = 0
+  \end{equation}
+  is $Z^n$, which we know is countable \footnote{I think in the text we proved that $Z^2$ was countable, so we can use induction and show that $Z^k$ in general is countable.}
+
+  Now, what we need to show is if we have a countable set of countable sets, is their union countable? As we saw in Theorem 2.12, the answer is yes.
+
+  Just to add another explanation, in case the book explanation isn't convincing, imagine you have $f(j, k)$ which tells you the $k^\text{th}$ element of the countable set $Z^j$. Then we now have a function for retrieving any element from our countable union of countable sets.
+  We can visualize this as
+  \begin{equation}
+    \begin{matrix}
+      f(1, j): & x_{11} & x_{12} & x_{13} & \cdots \\
+      f(2, j): & x_{21} & x_{22} & x_{23} & \cdots \\
+      f(3, j): & x_{31} & x_{32} & x_{33} & \cdots \\
+      \vdots   & \vdots & \vdots & \vdots & \ddots
+    \end{matrix}
+  \end{equation}
+
+  Now, you might ask, doesn't this seem like we can make a diagonalization argument and prove this is uncountable? And this is a great question, because it should be natural to ask that.
+
+  However, if you make the diagonalization argument, by taking each $x_{ii}$ and trying to construct some polynomial that doesn't exist, you realize that the polynomial you are constructing is an infinitely long polynomial, which of course is not in our set, and also isn't a polynomial we aren't considering.
+  It's because of the fact that we are only considering finite polynomials that makes this countable. Hence, the set of algebraic numbers is countable.
+}
+
+\bx{
+  The set of real numbers is uncountable, so if there are countable algebraic numbers, there must exist some real numbers which are not in the algebraic number set, otw we reach a contradiction that real numbers are countable.
+}
+
+\bx{
+  No, because the rational numbers are countable.
+}
+
+\bx{
+  The set defined by:
+  \begin{equation}
+    S = \bigcap_{i=1}^\infty \left [0, \frac{1}{i}\right ) \cup
+    \bigcap_{i=1}^\infty \left [1, 1 + \frac{1}{i}\right ) \cup
+    \bigcap_{i=1}^\infty \left [2, 2 + \frac{1}{i}\right )
+    \label{eq:2.5}
+  \end{equation}
+  The limit points being $0, 1, 2$ in this case.
+}
+
+\bx{
+  $E'$ is closed because AFSOC there is a limit point $p$ of $E'$ that is $\not\in E'$.
+  Since $p$ is a limit point of $E'$, we know for every neighborhood $N_p$ around $p$, there $\exists q\neq p'$ such that $q \in E'$. We also know that these $q$ are limit points of $E$, so we can find $r \neq q$ in every neighborhood $N_q$ around $q$ such that $r \in E$.
+  Then, for every $N_p$, we can choose some $N_q$ that is entirely contained within $N_p$, such that $r \in N_p$. In this case, we have found for every $N_p$ around $p$ that there is some $r \in N_p$ but also $r \in E$, which means $p$ is a limit point of $E$, and therefore $p \in E'$, which is a contradiction.
+  Therefore, $E'$ contains all of its limit points and it is closed.
+
+  The proof we have just done above shows that $E'$ doesn't have any limit points that are $\not\in E'$, meaning $E'$ and $E$ have the same limit points.
+  Therefore, $\bar{E}$ has the union of limit points of $E$ and $E$ which is just limit points of $E$, so therefore $\bar{E}$ and $E'$ have the same set of limit points.
+
+  Careful here, we haven't proved that $E, E'$ have the \textit{same} limit points, only that every limit point of $E'$ is also a limit point of $E$.
+  In order to show they are the same, we'd have to prove that every limit point of $E$ is also a limit point for $E'$. We can try to prove this by saying every limit point of $E$ is some $p \in E'$, and this $p$ has for every neighborhood some $q \in E$ that exists.
+  But the argument breaks down here, because how in the world do we prove that $q \in E'$ as well? The answer is we can't, because we can take some inspiration from our answer in \ref{eq:2.5} and see that if
+  \begin{equation}
+    E = \bigcap_{i=1}^\infty \left [0, \frac{1}{i}\right )
+  \end{equation}
+  Then we have $E' = \pbra{0}$, but $E'$ has no limit points. So we have found a counterexample where $E$ and $E'$ have different limit points.
+  \label{pr:2.6}
+}
+
+\bx{
+  \ea{
+    \item I'm too lazy to do this but I think it's pretty similar to \ref{pr:2.6}.
+    \item I'm not going to do the main proof, but will do the followup question. This inclusion can be proper because imagine that
+    \begin{equation}
+      A_i = \pbra{\sum_{i=0}^i \frac{1}{2^i}, \sum_{i=0}^{i+1} \frac{1}{2^i}}
+    \end{equation}
+    Then 1 is a limit point of $B$, but it is not a limit point of any $A_i$.
+  }
+}
+
+\bx{
+  For open sets, yes, since for every point, we have some neighborhood $N$ that is entirely contained in the set. So either we have some larger $N'$ around the point that contains $N$ as a subset, in which we can take some element $q$ in $N$ which is also $\in N'$ and $q$ is in our set, so therefore our point is a limit point.
+  Otherwise, if we have a smaller neighborhood, then it will be a subset of $N$, which we know is already a subset of the set, and therefore any points in those neighborhoods will be in the set. It remains to prove that such a point exists, but it will because for any $p$ and neighborhood with radius $r$, we can find a point $(p_1 + r/3, p_2 + r/3)$ which is contained in the neighborhood and exists in $R^2$.
+  This argument exists in general for $R^n$, so we know every interior point in $R^n$ is a limit point as well.
+
+  For closed sets, this is not true in general because we can try to choose a set with no limit points, which is closed by the set vacuously having all of its limit points, e.g. a singleton like $\pbra{1}$. In this case, there are no limit points, so $1$ is not a limit point but it is in the set, which is closed.
+}
+
+\bx{
+  \ea{
+    \item If every point of $\interior{E}$ is an interior point of $E$, then they have a neighborhood $N$ entirely contained within $E$. Thus, if we can find a neighborhood entirely contained within $\interior{E}$, we can prove that these points are also interior points of $\interior{E}$ and therefore the set is open.
+    We can show that this $N$ must exist in $\interior{E}$, by showing that every point in $N$ is an interior point. This is true, because suppose we have some interior point of $E$ with a neighborhood $N$ of radius $r$.
+    Suppose we have some point $p' \in N, p' \neq p$. Suppose this point is $r'$ distance from $p$, then we can find the neighborhood $N'$ with radius $\min(r', r-r')$ around $p'$, which is entirely contained within $N$ and thus $E$, and thus is an interior point.
+    Therefore, every point of $\interior{E}$ is an interior point, and thus the set is open.
+
+    \item \ea{
+      \item If $E$ is open, then we know that every point of $E$ is an interior point so therefore $E = \interior{E}$.
+      \item If $E = \interior{E}$, that implies that every point of $E$ is an interior point, so therefore $E$ is open.
+    }
+
+    \item $G$ is open, which means every point is an interior point of $G$. $G \subset E$, the neighborhoods which makes these points interior points are also in $G$, so these points are also interior points of $E$, and therefore are in $\interior{E}$.
+    \item We are trying to prove that $\complement{\pa{\interior{E}}} = \closure{\complement{E}}$.
+
+    \begin{itemize}
+      \item Suppose $x \in \complement{\pa{\interior{E}}}$, then we know that $x \not\in \interior{E}$, meaning it is not an interior point of $E$. Then we have two cases
+            \begin{enumerate}
+              \item $x \in E \setminus \interior{E}$, then $x$ is not an interior point of $E$. This implies that every neighborhood $N$ around $x$ has the property that $N \not\subset E$, which means $\exists q \neq x$ such that $q \not\in E$, but $q \in N$.
+                    If we consider this $x, q$ from the perspective of $\complement{E}$, this means $x$ is a limit point of $\complement{E}$ so therefore $x \in \closure{complement{E}}$.
+              \item $x \in \complement{E}$: By the definition of closure, this implies $x \in \closure{\complement{E}}$
+            \end{enumerate}
+
+      \item Suppose $x \in \closure{\complement{E}}$, then we know that $x \in \complement{E}$ or $x \in \pa{\complement{E}}'$. We can use a pretty similar argument from above to prove this direction.
+    \end{itemize}
+  }
+}
+
+\bx{
+  This is a metric because
+
+  \ea{
+    \item $d(p, q) = 1 > 0$ if $p\neq q$, and $d(p, p) = 0$ by def.
+    \item $d(p, q) = 1 = d(q, p)$
+    \item $d(p, q) = 1 \leq d(p, r) + d(r, q) = 2$
+  }
+
+  Intuition runthrough:
+  \begin{itemize}
+    \item Every subset is open? Because you can just draw a neighborhood with $r=1/2$ and that will only contain the point which is a subset of the set itself.
+    \item Every set has no limit points, because the $r=1/2$ neighborhood only includes a single point, which cannot be a limit point, and therefore since every set has no limit points, every set is vacuously closed.
+    \item Finite sets are compact.
+  \end{itemize}
+}
+
+\bx{
+  Too lazy, but you just check the 3 rules.
+}
+
+\bx{
+  The idea here is that some set in the open cover will contain $0$, which means it will contain some neighborhood around $0$, which will help us cover all $\frac{1}{n}$ that are small enough to fit in this neighborhood.
+  Then, we are only left with finitely many $\frac{1}{n}$ that aren't in this cover, and we can just take the union of those sets that contain those elements, which will give us a finite subcover.
+}
+
+\bx{
+  It doesn't say countably infinite\footnote{I know I'm being cheap here} so you can just do a finite number of limit points...$[0, 1]$ will do.
+}
+
+\bx{
+  Hey check out my explanation of compactness in \ref{chap2:compactness}!
+}
+
+\bx{
+  \begin{itemize}
+    \item Open counterexample in $R$
+          \begin{equation*}
+            \bigcap_{i=0}^\infty \pa(0, \frac{1}{2^i}) = \emptyset
+          \end{equation*}
+          but every finite subcollection intersection is not empty.
+
+    \item Closed counterexample in $R$ (not extended)
+          \begin{equation*}
+            \bigcap_{i=0}^\infty \pa(i, \infty) = \emptyset
+          \end{equation*}
+          this is because for any $n$ you choose, I can find an $i$ such that $i > n$ and $(i, \infty)$ is one of the sets in this intersection, so the set is empty.
+          If you take any finite intersection, you can find the max $i$ in these sets, and $i < x < \infty$ will exist in this intersection so it is not empty.
+  \end{itemize}
+}
+
+\bx{
+  Since there are ``holes'' in rationals, we can intuitively figure out this is not compact. But more formally, you can construct an infinite covering where we get $1/2^i$ closer to $\sqrt{2}$, and you won't be able to take any finite subcovering, or else you miss out on some rationals that are even closer to $\sqrt{2}$ that you inevitably cannot include with a finite subcovering.
+  Yes $E$ is open, you should be able to draw a neighborhood around every rational where the entire neighborhood is in $E$.
+}
+
+\bx{
+  $E$ is not countable because of infinite $4, 7$ and we can do diagonalization proof.
+
+  $E$ is not dense since $1.4$ is at least $0.04$ away from any other element, so we can choose something like 1.2 which is not a limit point of $E$ and is not in $E$.
+
+  I originally tried to prove this by showing that $E$ contains all its limit points, but it's honestly really hard, because you don't really know where certain values are converging towards.
+  Instead, an easier approach here is to try to prove the complement of $E$ within the interval, namely $[0, 1] \setminus E$ is open, in which case we can see that given any $x$ without $4, 7$ in the decimal expansion, we can find where it doesn't have a $4, 7$, and that will produce some radius for a neighborhood that is small enough such that $x$ is entirely contained within numbers that are not $4, 7$, making $x$ and interior point and this complement open.
+
+  We want to prove $E = E'$ if $E$ is perfect. We know $E$ is closed so $E' \subset E$. It remains to show that $E \subset E'$.
+  Ok so I think my intution was originally wrong about this problem, and since we are considering decimal expensions only including $4, 7$, that means each decimal expension is infinite. I think this makes the problem make \textit{way more sense} and I wish the author would've mentioned it.
+  But yeah, in that case, it's pretty easy to show every point is a limit point because given any $x \in E$, you can just find a $y$ that matches up with $x$ long enough until the $\epsilon$ is small enough, therefore showing that $x$ is a limit point.
+}
+
+I'm going to stop here for now and then continue reading the rest of the book

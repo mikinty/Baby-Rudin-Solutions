@@ -43,12 +43,21 @@
 \newcommand{\R}{R}
 \newcommand{\Q}{Q}
 \newcommand*\conj[1]{\bar{#1}}
+\newcommand{\interior}[1]{%
+  {\kern0pt#1}^{\mathrm{o}}%
+}
+\renewcommand{\complement}[1]{%
+  {\kern0pt#1}^{\mathrm{c}}%
+}
+\newcommand{\closure}[1]{%
+  \overline{\kern0pt#1}%
+}
 
 % Exercise theorem env
 \theoremstyle{break}
 \theorembodyfont{\upshape} % No italics in body font
 \renewtheorem{definition}{Definition}[section]
-\newtheorem{exercise}{Exercise}
+\newtheorem{exercise}{Exercise}[chapter]
 \newtheorem{tip}{Tip}[section]
 \newtheorem{identity}{Identity}[section]
 
