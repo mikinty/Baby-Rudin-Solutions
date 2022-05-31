@@ -1,0 +1,237 @@
+\chapter{Numerical Sequences and Series}
+
+It is absolutely paramount that you understand $\delta-\epsilon$ proofs before reading this chapter, since Rudin doesn't explain them at all.
+Checking out \href{https://github.com/mikinty/Understanding-Analysis-Abbott-Solutions}{\textit{Understanding Analysis by Abbott} Solutions} that I wrote has some cheatsheets in the back fro review, and reading \href{https://amzn.to/3t3w4HN}{the book} is a good idea as well.
+
+Some dumbed-down student interpretations of definitions:
+\begin{itemize}
+  \item \textbf{Diameter}: The furthest 2 points are from each other in a sequence.
+  \item $limsup_{n\to \infty} s_n = s^*$: the largest value that some subsequence in $E$ converges to. There is an analogous definition for $\liminf$.
+\end{itemize}
+
+\section{Exercises}
+
+\bx{
+  Triangle inequality says that
+  \begin{equation}
+    \abs{\abs{s_n} - \abs{s}} \leq
+    \abs{s_n - s} < \epsilon
+  \end{equation}
+  so we conclude that $\pbra{\abs{s_n}}$ converges.
+
+  The converse is not true, because you can take $s_n = (-1)^n$ which converges in the absolute value to 1, but diverges without the absolute value.
+}
+
+\bx{
+  There are some algebra tricks you need to solve this problem.
+
+  Although this is kinda ``beyond the scope of what we've learned so far,'' the first solution that came to mind to me was the expand the power series for the square root, which is really just a binomial to the $1/2$ power.
+
+  As a reminder, the binomial expansion is
+  \begin{equation}
+    (1 + x)^n = 1 + nx + \binom{n}{2}x^2 + \binom{n}{3}x^3 + \cdots = \sum_{i = 0}^\infty \binom{n}{i} x^i
+  \end{equation}
+
+  We get
+  \begin{align*}
+    \lim_{n \to \infty} \sqrt{n^2 + n} - n
+     & = \lim_{n\to\infty} n\pa{1 + \frac{1}{n}}^{1/2} - n                                                   \\
+     & = \lim_{n\to\infty} n\pa{
+      1 + \frac{1}{2}\frac{1}{n} + \frac{1}{2}\cdot \frac{-1}{2} \cdot \frac{1}{2!}\cdot \frac{1}\cdot {n^2}
+    } - n                                                                                                    \\
+     & = \lim_{n\to\infty} \frac{1}{2} + \frac{1}{n^2} \cdot \pa{\text{constant or power $n^k$ where $k<0$}} \\
+     & = \frac{1}{2}
+  \end{align*}
+
+  The other solution that I was thinking about was pretty similar to the textbook solution \footnote{which is to ``rationalize'' by $\sqrt{n^2 + n} - n$ btw},
+  is to divide by $n$ and take it from there.
+
+  So trying that...
+  \begin{align*}
+    \frac{
+      \pa{\sqrt{n^2 + n} - n}/n
+    }{
+      1/n
+    }
+     & =
+    \frac{
+      \sqrt{1 + 1/n} - 1
+    }{
+      1/n
+    }                                                        \\
+     & = \frac{\frac{1}{2}\pa{1 + 1/n}^{-1/2} \cdot \lg{n}}{
+      \lg{n}
+    } \tag{L'Hopital's rule\footnote{Yeah we haven't proven this works so...this is just a problem-solver's thought here}}
+  \end{align*}
+  from the result here, we can see the limit as $n \to \infty$ makes this expression $1/2$ as well.
+}
+
+\bx{
+  \TODO
+}
+
+\bx{
+  Trying out some values, we get $0, 0, 1/2, 1/4, 3/4, 3/8, 7/8, 7/16, \dots$. It seems like we are approaching 1 and $1/2$ (so this sequence does not converge).
+
+  Now taking a look at our equations,
+  \begin{align*}
+    s_1      & = 0                    \\
+    s_{2m}   & = \frac{s_{2m-1}}{2}   \\
+    s_{2m+1} & = \frac{1}{2} + s_{2m}
+  \end{align*}
+  we can deduce that
+  \begin{align*}
+    s_{2m}   & = \frac{1}{4} + \frac{s_{2m-2}}{2} \\
+    s_{2m+1} & = \frac{1}{2} + \frac{s_{2m-1}}{2}
+  \end{align*}
+  For $s_{2m}$, if we expand this, we get $1/4 + 1/8 + \cdots$ until the term is equal to 0.
+  For $s_{2m}+1$, if we expand this, we get $1/2 + 1/4 + 1/8 + \cdots$ until the term is equal to 0.
+
+  To formally prove the bounds, we have to use induction, but we can conclude that our lower limit is 0 and $1$ here.\footnote{Sorry too lazy to just chug through the induction here\dots I think the problem solving here is more important.}
+}
+
+\bx{
+  The intuition here is that we take these $a_n$ and $b_n$ that form the $\limsupn (a_n + b_n)$, and we notice that by definition, $\lim_{n\to\infty}$ for these two sequences must be $\leq$ both $\limsup_{n\to\infty} a_n$ and $b_n$ respectively, by definition.
+  So we have $a_n \to A$ and $b_n \to B$ and we know that $A \leq \limsupn a_n$ and $B \leq \limsupn a_n$ and we can conclude that
+  \begin{equation}
+    \limsupn (a_n+b_n) = A + B \leq \limsupn a_n + \limsupn b_n
+  \end{equation}
+
+  Here's an attempt at doing it with AFSOC...\footnote{It's way more convoluted so doing it directly is probs preferred.}
+
+  AFSOC $\limsup_{n\to\infty} \pa{a_n + b_n} > \limsup_{n\to\infty} a_n + \limsup{n\to\infty}b_n$.
+
+  Then label
+  \begin{align*}
+    \limsupn \pa{a_n + b_n} & = C'    \\
+    \limsupn a_n            & = A     \\
+    \limsupn a_n            & = B     \\
+    C                       & = A + B
+  \end{align*}
+  Now, if we have $\limsupn \pa{a_n + b_n} = C'$, then let the $a_n \to A'$ in this sequence $a_n + b_n$.
+  Then if we consider the sequence $(a_n + b_n) - a_n$, we have
+  \begin{equation*}
+    \limsupn \pbra{\pa{a_n + b_n} - a_n} = C' - A'
+  \end{equation*}
+  we have a few cases, here
+  \begin{itemize}
+    \item $\limsupn a_n > A'$: This is not possible, since we could've chosen this $a_n$ sequence instead and gotten a larger $C'$.
+    \item $\limsupn a_n < A'$: This is not possible, since we could've chosen this $a_n$ sequence a gotten a larger $A$.
+    \item $\limsupn a_n = A'$: In this case, we have
+          \begin{align*}
+            \limsupn \pbra{\pa{a_n + b_n} - a_n} & = \lim_{n\to\infty} b'_n             \\
+                                                 & = C' - A'                            \\
+                                                 & = C' - A                             \\
+                                                 & > C - A \tag{$C' > C$ by assumption} \\
+            \implies                             & > B
+          \end{align*}
+          which is a contradiction, since we know that $\limsupn b_n = B$, so there can be no subsequence of $b'_n$ that goes to a larger limit.
+  \end{itemize}
+}
+
+\bx{
+  \ea{
+    \item Let us investigate with ratio test
+    \begin{align*}
+      \frac{
+        \sqrt{n+1} - \sqrt{n}
+      }{
+        \sqrt{n} - \sqrt{n-1}
+      }
+       & = \frac{\sqrt{n} + \sqrt{n-1}}{\sqrt{n} + \sqrt{n-1}} \cdot
+      \frac{
+        \sqrt{n+1} - \sqrt{n}
+      }{
+        \sqrt{n} - \sqrt{n-1}
+      }                                                              \\
+       & = \frac{\sqrt{n+1} + \sqrt{n}}{\sqrt{n+1} + \sqrt{n}} \cdot
+      \frac{
+        \pa{
+          \sqrt{n} + \sqrt{n-1}
+        }\pa{
+          \sqrt{n+1} - \sqrt{n}
+        }
+      }{
+        1
+      }                                                              \\
+       & = \frac{
+        \sqrt{n} + \sqrt{n-1}
+      }{
+        \sqrt{n+1} + \sqrt{n}
+      }                                                              \\
+       & = \frac{1 + \sqrt{1 - 1/n}}{\sqrt{1 + 1/n} + 1}
+    \end{align*}
+    this limit is $=1$, so we conclude this series diverges.
+    \label{ex:3.6a}
+
+    \item From \ref{ex:3.6a}, we can use the ratio test and get to
+    \begin{equation*}
+      \frac{
+        n
+      }{
+        n+1
+      } \cdot \frac{
+        \sqrt{n} + \sqrt{n-1}
+      }{
+        \sqrt{n+1} + \sqrt{n}
+      } = \frac{1 + \sqrt{1 - 1/n}}{
+        \sqrt{1 + 1/n} + \sqrt{1/n^2 + 1/n^3} + 1 + 1/n
+      } = \frac{1}{2} < 1
+    \end{equation*}
+    so the ratio test concludes that this series converges.
+
+    \item \TODO
+    \item \TODO
+  }
+}
+
+\bx{
+  I was going to do comparison for this, so take a few cases,
+  \begin{enumerate}
+    \item $a_i = 0$, then it is trivial that
+          \begin{equation*}
+            \frac{\sqrt{a_n}}{n} = 0 \leq 0 = a_n
+          \end{equation*}
+    \item $a_i \geq 1$. Then we have $\sqrt{a_i} < a_i$, so we have
+          \begin{equation*}
+            \frac{\sqrt{a_n}}{n} < a_n
+          \end{equation*}
+    \item $a_i < 1$. Then we have $\sqrt{a_i} < a_i$, but
+          \begin{equation*}
+            \frac{\sqrt{a_n}}{n} \geq a_i \implies a_n < \frac{1}{n^2}
+          \end{equation*}
+          In this case, we have
+          \begin{equation*}
+            \sum \sqrt{a_n}{n} < \sum \frac{1}{n^3}
+          \end{equation*}
+          which we know converges.
+  \end{enumerate}
+  Therefore, by our 3 parts, we have 2 cases which converge because they are bounded above and the series is increasing, and the last case we showed that subsequence converges as it is also bounded by above.
+}
+
+\bx{
+  If we just use Theorem 3.42, but at the very last step, instead of setting $b_N$ to be arbitrarily small, we can set it to some bound $M_b$ since we are given that, and we instead have that
+  \begin{equation*}
+    \abs{\sum_{n=1}^N a_nb_n} = \abs{
+      \sum_{n=1}^{N-1} A_n(b_n - b_{n+1}) + A_Nb_N - A_0b_1
+    } \leq M_A \abs{2b_1} \leq 2M_A M_B
+  \end{equation*}
+  Actually this doesn't feel right... :(
+
+  Let me try again with showing that the partial sums form a Cauchy sequence.
+
+  We want to find some $N$ given any $\epsilon > 0$ such that $n > m \geq N$ implies
+  \begin{equation*}
+    \abs{\sum_{i = m+1}^n a_ib_i} < \epsilon.
+  \end{equation*}
+  Since we know $b_i$ is bounded, let's say by $M_b$, we can rewrite our expression as
+  \begin{equation*}
+    \abs{\sum_{i = m+1}^n a_ib_i} \leq M_b \abs{\sum_{i = m+1}^n a_i }
+  \end{equation*}
+  We know that $\sum a_i$ converges, so just choose $N$ such that $\sum_{i = m+1}^n < \frac{\epsilon}{M_b}$, so we have
+  \begin{equation*}
+    \abs{\sum_{i = m+1}^n a_ib_i} \leq M_b \abs{\sum_{i = m+1}^n a_i } < M_b \cdot \frac{\epsilon}{M_b} = \epsilon.
+  \end{equation*}
+}
+
+I honestly don't feel like I learned this chapter that well, but I wanna start the next chapter, so here we go...

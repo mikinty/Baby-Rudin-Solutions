@@ -15,17 +15,17 @@ Some gotchas:
 Compactness is a definition that I thoroughly struggled with, so here is how I understood it:
 \begin{itemize}
   \item A set is compact if every open cover contains a finite subcover.
-  \item This means given \textit{any} open cover, so some $\cup_\alpha G_\alpha$ where $G_\alpha$ are all open and we can have an infinite cover here, we can find some finite subset of these $G_\alpha$ such that their union completely contains $K$.
+  \item This means given \textit{any} open cover, so some $\bigcup_\alpha G_\alpha$ where $G_\alpha$ are all open and we can have an infinite cover here, we can find some finite subset of these $G_\alpha$ such that their union completely contains $K$.
   \item A good way to illustrate how this work, is consider $(0, 1)$. We can come up with an open cover as
         \begin{equation}
           (0, 1) = \bigcup_{i = 1}^\infty \pa{\frac{1}{i}, 1}
         \end{equation}
-        No matter what finite subcover you choose here, you will have some maximum $N$ such that $pa{\frac{1}{N}, 1}$ is the widest interval you chose, and you will be missing the elements $0 < x < \frac{1}{N}$, so any finite subcover will not cover $K$.
+        No matter what finite subcover you choose here, you will have some maximum $N$ such that $\pa{\frac{1}{N}, 1}$ is the widest interval you chose, and you will be missing the elements $0 < x < \frac{1}{N}$, so any finite subcover will not cover $K$.
   \item Another thing to notice is that the open cover and subcover are covers, meaning they can also ``over''-cover the set $K$, and include elements that are not in $K$. This is important!
   \item I think this definition is hard to understand because you have to consider a ``nested statement''. In this case, we have to consider for all open covers, and then within each open cover, we have to show that there exists a finite subcover.
 \end{itemize}
 
-\section*{Exercises}
+\section{Exercises}
 
 \bx{
   It is vacuously true that every element of the empty set is in any other set.
