@@ -1,5 +1,89 @@
 \chapter{Continuity}
 
+Short chapter, and I think pretty intuitive, except it does rely quite a bit on Chapter 2, so if you didn't learn that well...now is the time to review those definitions and theorems.
 
+Stressing the convenience and importance of compactness for sets for certain continuity theorems was really cool, as without compactness, we saw that functions aren't able to behave as nicely as we wanted to.
+I think this is also the first time we see why it's useful to have the finite open cover for any open cover property of compact sets -- we are able to use the finite-ness to use things like taking a minimum over a finite set for example.
+
+There was a brief mention of adding $\infty$ to neighborhood definitions at the end, but don't sweat, all it's allowing us to do is now define the limit of some $f(t) \to \infty$, which was previously not defined.
 
 \section{Exercises}
+
+\bx{
+  For any $\epsilon > 0$, we have to find some $\delta$-radius neighorhood around $x$ such that
+  \begin{equation*}
+    \abs{f(x) - f(y)} < \epsilon,
+  \end{equation*}
+  for $y \in N_\delta(x)$.
+
+  By the definition of the limit, we can choose $h$ such that
+  $\abs{h} < \delta_h$ and
+  \begin{equation*}
+    \abs{f(x+h) - f(x-h)} < \epsilon_h,
+  \end{equation*}
+
+  So it turns out from here, it's really hard to prove this, and this might hint that maybe this isn't true.
+  To give some more insight into this, the situation we have now can be illustrated as
+  \begin{figure}[H]
+    \centering
+    \def\aboveSpace{0.2}
+    \begin{tikzpicture}
+      \filldraw (-3, 0) circle[radius=2pt];
+      \filldraw (3, 0) circle[radius=2pt];
+      \filldraw (0, 0) circle[radius=2pt];
+      \filldraw (1, 0) circle[radius=2pt];
+
+      \draw[<->] (-4, 0) -- (4, 0);
+      \draw
+      (-3, \aboveSpace) node[above] {$x-\delta_h$}
+      (0, \aboveSpace) node[above] {$x$}
+      (1, \aboveSpace) node[above] {$y$}
+      (3, \aboveSpace) node[above] {$x+\delta_h$}
+      ;
+    \end{tikzpicture}
+  \end{figure}
+  From the figure, we see the issue is that despite knowing the limit of the function of some endpoints goes to zero, we don't know anything about $y$.
+  Something natural to try here is to choose $h$ such that one of $x\pm \delta_h = y$, but the issue is that we can't do that, because we have to choose $\delta_h$ first.
+
+  Therefore, this leads us to think that trying to prove this is not possible, aided by the help that if $f(y)$ is just vastly different from $f(x\pm h)$, then we can make $f$ discontinuous.
+  One such function that works is a counterexample is $f(x) = 1 \text{ if rational } 0 \text{ otherwise}$.
+}
+
+\bx{
+Suppose $x \in f(\closure{E})$. Then we can consider cases
+\begin{itemize}
+  \item $x \in f(E)$: Then it is trivial that $x \in \closure{f(E)}$ because $f(E) \subset \closure{f(E)}$.
+  \item $x \in \closure{E} \setminus E$: This means $x$ is a limit point of $E$.
+
+        If we consider $f(x)$, by continuity of $f$, we know that given any $\epsilon > 0$, we can find some $p \in N_\delta(x)$ such that
+        $d_Y(f(x), f(p)) < \epsilon$. Since $x$ is a limit point, there are infinite such $p$, which means there are infinite $f(p)$ that satisfy this $\epsilon$ as well.
+        Since $p \in E, f(p) \in f(E)$, which means $f(x)$ is a limit point of $f(E)$.
+
+        We can now conclude that $f(x) \in \closure{f(E)}$, so $f(E) \subset \closure{f(E)}$ in this case as well.
+\end{itemize}
+For a proper subset, we can consider $f(x) = 1/x, x \in (1, \infty)$. We notice that $0$ is a limit point of $f(x)$ in this set, but even the closure $[1, \infty)$ won't contain this limit point.
+\label{ex:4.2}
+}
+
+\bx{
+  $Z(f)$ is the inverse image of ${0}$, which is closed, so $Z(f)$ is closed as well.
+}
+
+\bx{
+  Since $E$ is dense in $X$, we know that $\closure{E} = E \cup E' = X$, meaning that $f(X) = f(\closure{E}) \subset \closure{f(E)}$, from \ref{ex:4.2}.
+  We just need to prove $\closure{f(E)} \subset f(X)$ now. The case if we consider a non-limit point of $\closure{f(E)}$ is trivial since we know that $f(E) \subset f(X)$.
+  If we take a limit point of $\closure{f(E)}$, AFSOC it is $\not \in f(X)$, then this implies a contradiction since the limit point property shows that we have infinitely many points near this limit point, in $f(E)$, which we know is $\subset f(X)$,
+  which means...\TODO\footnote{idk why this is so difficult to prove the rest. I think I need to use continuity and density of $E$ here.}
+
+  I think the direct proof might be easier, where you try to prove every point of $f(X)$ is a limit point of $f(E)$. We can conclude this because we know $E$ is dense, so by continuity and limit point properties, we can conclude that for any $x \in X$, we can find close points $p \in E$ such that $\abs{f(p) - f(x)} < \epsilon$, and this will show that $f(x)$ is a limit point for $f(E)$.
+
+  If we have $g(p) = f(p), p \in E$, then AFSOC $\exists p' \in X, g(p')\neq f(p')$.
+  We know that $p'$ is a limit point of $E$ by density, so by continuity of $f, g$,
+  we can find a $p \in N_\delta(p')$, such that $p \in E$ and $f(p)$ and $g(p)$ get arbitrarily close to $f(p')$ and $g(p')$ respectively.
+  But for all of these $p$, we have that $f(p) = g(p)$, so we run into a contradiction that
+  \begin{equation*}
+    \abs{f(p') - g(p')} \leq \abs{f(p') - f(p) - (g(p') - f(p))} \leq \abs{f(p') - f(p)} + \abs{g(p') - g(p)} < \epsilon
+  \end{equation*}
+  for appropriately chosen $\delta$ to make $\abs{f(p') - f(p)} < \epsilon/2$ and same for $g$.
+  This means we must conclude that $\forall p \in X, g(p) = f(p)$.
+}
