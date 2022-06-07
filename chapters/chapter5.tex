@@ -1,0 +1,136 @@
+\chapter{Differentiation}
+
+Short chapter here. The proofs are fairly straightforward and if you have some calculus background, this chapter should've have been too hard.
+The hardest proof for me was L'Hospital's Theorem, namely the step where we have
+
+\begin{equation*}
+  \frac{f(x)}{g(x)} < r - r \frac{g(y)}{g(x)} + \frac{f(y)}{g(x)}
+\end{equation*}
+
+and we conclude by letting $x \to a$, that we have
+\begin{equation*}
+  \frac{f(x)}{g(x)} < q.
+\end{equation*}
+This is confusing because when $x \to a$, and we assume $g(x) \to \infty$ as $x \to a$, I don't see how the equation reduces nicely.
+Meaning, it seems like $f(x)/g(x) \to 0$ as well, but maybe it's because we have that $y$ is fixed, so we know \textit{for sure} that
+\begin{equation*}
+  r \frac{g(y)}{g(x)} + \frac{f(y)}{g(x)}
+\end{equation*}
+all go to zero, so we are left with
+\begin{equation*}
+  \frac{f(x)}{g(x)} < r < q.
+\end{equation*}
+
+I've noticed the problems in this chapter tend to be pretty MVT (Mean Value Theorem) heavy, so make sure to pull that out when you can.
+
+\section{Exercises}
+
+\bx{
+  I think we can change this into
+  \begin{equation*}
+    \frac{
+      \abs{f(x) - f(y)}
+    }{
+      x - y
+    } \leq x - y
+  \end{equation*}
+  and if we let $y \to x$, then we have
+  \begin{equation*}
+    \abs{f'(x)} \leq 0
+  \end{equation*}
+  which implies that $f'(x) = 0$, for all $x$, and thus $f$ is constant.
+}
+
+\bx{
+  If we have $f'(x)>0, x \in (a, b)$, then it must be strictly increasing, because AFSOC $\exists x_1< x_2 \in (a, b), f(x_1) \geq f(x_2)$,
+  then we can show that $\exists x_3 \in (x_1, x_2)$ such that
+  \begin{equation*}
+    f'(x_3) = \frac{f(x_2) - f(x_1)}{x_2-x_1} \leq 0
+  \end{equation*}
+  by the mean value theorem, which contradicts the fact that $f'(x) > 0 \forall x \in (a, b)$.
+
+  Since $g(x) = f^{-1}(x)$, we have
+  \begin{align*}
+    g(f(x))       & = f^{-1}(f(x)) = x    \\
+    g'(f(x))f'(x) & = 1\tag{product rule} \\
+    g'(f(x))      & = \frac{1}{f'(x)}
+  \end{align*}
+  We only really needed $f'(x) \neq 0$ I believe, not the strictly increasing part.
+}
+
+\bx{
+  For injective (one-to-one) proofs we usually start with $f(x_1) = f(x_2)$ and try to prove that $x_1 = x_2$.
+  If we do that here, we get
+  \begin{align*}
+    f(x_1)                & = f(x_2)                \\
+    x_1 + \epsilon g(x_1) & = x_2 + \epsilon g(x_2) \\
+    g'(x_1)               & = g'(x_2)
+  \end{align*}
+  I'm honestly not sure what to do here, especially with the bounded derivative property of $g$.
+
+  \TODO
+}
+
+\bx{
+  The solution for this is to choose
+  \begin{equation*}
+    P(x) = \sum_{i=0}^n \frac{C_i}{i+1} x^{i+1}
+  \end{equation*}
+  and see that $P(0), P(1) = 0$ from the problem statement, and that $P'(0) = 0$ follows by the mean value theorem.
+
+  What I can add to this problem is that I was confused about the
+  \begin{equation*}
+    P'(x) = C_0 + C_1x + \cdots + C_nx_n = 0
+  \end{equation*}
+  It seems like by taking $x = 0$, we can show that $C_0 = 0$. Now, if we differentiate to get $P''(x)$, we can take $x=0$ and show $C_1 = 0$ and so on...unsure why this is flawed\footnote{Maybe it's because I'm only considering $x=0$? At other $x\neq 0$ values, maybe these constants don't have these properties? I guess we're also not given that equation is true for all $x$, we just want to know for which $x$ we \textit{definitely} know it is true for.}.
+}
+
+\bx{
+  Applying MVT to $f(x+1) - f(x)$ we get
+  \begin{equation*}
+    f(x+1) - f(x) = (x + 1 - x)f'(y)
+  \end{equation*}
+  for $y \in (x, x+1)$. Now, since we know that $\lim_{x \to \infty} f'(x) = 0$, we can choose some $x$ so large so that we have this choice of $y$ imply that
+  $\abs{f'(y)} < \epsilon$, meaning that $g(x) = f(x + 1) - f(x) < \epsilon$, implying that $\lim_{x \to \infty} g(x) = 0$.
+}
+
+\bx{
+  Here is a solution sketch to find motivation.
+
+  If we want to show that $g$ is monotonically increasing, we need to show that $g'(x) \geq 0$.
+  Given the definition of $g$, what we end up getting is that
+
+  \begin{align*}
+    g'(x) = \frac{f'(x)x - f(x)}{x^2} & \text{?}\geq 0
+    x \cdot f'(x) \text{?}\geq f(x)
+  \end{align*}
+
+  Seeing we need a relationship between $f(x)$ and $f'(x)$, we can apply MVT to $f(x), f(0)$ and go from there.
+  I had to look up the solution for this one, but I wanted to add in the motivation for the solution while I was trying to solve it.
+}
+
+\bx{
+  This is pretty straightforward, we have
+  \begin{equation*}
+    \frac{f'(x)}{g'(x)}
+    = \lim_{t \to x} \frac{f(t) - f(x)}{t - x}\frac{t-x}{g(t) - g(x)}
+    = \lim_{t \to x} \frac{f(t) - f(x)}{g(t) - g(x)}
+    = \lim_{t\to x}\frac{f(t)}{g(t)}
+  \end{equation*}
+  The last step comes from the fact that $f(x), g(x) = 0$.
+
+  This holds for complex functions since we made no assumptions about $R^1$ operations here.
+}
+
+\bx{
+  This is probably not formal, but since we know that $f'$ is continuous on $[a, b]$, we have that $f'(x)$ exists for $x \in [a, b]$, and that for small enough $\delta$, we can get
+  \begin{equation*}
+    \frac{f(t) - f(x)}{t - x}
+    \label{eq:5.8}
+  \end{equation*}
+  arbitrarily close to $f'(x)$.
+
+  The question then comes, why can't we do this when $f'$ \textit{isn't} continuous, and I think it's because without continuity, we can't show that the expression in \label{eq:5.8} can be arbitrarily close to $f'(x)$.
+
+  Intuition says this holds for vector-valued functions since we have a finite number of coordinates and we just need to show the $\epsilon$ inequality holds for $n$ dimensions.
+}

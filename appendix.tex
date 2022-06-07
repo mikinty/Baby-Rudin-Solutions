@@ -1,0 +1,46 @@
+\chapter{Important Theorems and Definitions}
+
+There are a lot of important theorems in the book, but some stand out more than others.
+
+\section{Basic Topology}
+
+All of 2.18 are \textbf{essential} for this chapter and the book. Reproduced below for convenience
+
+\begin{definition}
+  Let $X$ be a metric space. All points and sets mentioned below are understood to be elements and subsets of $X$.
+  \ea{
+    \item A \textit{neighborhood} of $p$ is a set $N_r(p)$ consisting of all $q$ such that $d(p, q)<r$, for some $r > 0$. The number $r$ is called the \textit{radius} of $N_r(p)$.
+    \item A point $p$ is a \textit{limit point} of the set $E$ if \textit{every} neighborhood of $p$ contains a point $q \neq p$ such that $q \in E$.
+    \item If $p\in E$ and $p$ is not a limit point of $E$, then $p$ is called an \textit{isolated point} of $E$.
+    \item $E$ is \textit{closed} if every limit point of $E$ is a point of $E$.
+    \item A point $p$ is an \textit{interior point} of $E$ if there is a neighborhood $N$ of $p$ such that $N \subset E$.
+    \item $E$ is \textit{open} if every point of $E$ is an interior point of $E$.
+    \item The \textit{complement} of $E$ (denoted by $\complement{E}$) is the set of all points $p\in X$ such that $p\not\in E$.
+    \item $E$ is \textit{perfect} if $E$ is closed and if every point of $E$ is a limit point of $E$.
+    \item $E$ is \textit{bounded} if there is a real number $M$ and a point $q\in X$ such that $d(p, q) < M$ for all $p \in E$.
+    \item $E$ is \textit{dense in} $X$ if every point of $X$ is a limit point of $E$, or a point of $E$ (or both)\footnote{I often find it easier to read this as $X = \closure{E} = E \cup E'$}.
+  }
+\end{definition}
+
+\section{Continuity}
+
+\begin{definition}
+  Suppose X and Y are metric spaces, $E \subset X, p \in E$ and $f$ maps $E$ into $Y$. Then $f$ is said to be \textit{continuous} at $p$ if for every $\epsilon > 0$ there exists a $\delta > 0$ such that
+  \begin{equation}
+    d_Y(f(x), f(p)) < \epsilon
+  \end{equation}
+  for all points $x \in E$ for which $d_X(x, p) < \delta$.
+\end{definition}
+
+\section{Differentiation}
+
+\begin{definition}
+  Let $f$ be defined (and real-valued) on $[a, b]$. For any $x \in [a, b]$, form the quotient
+  \begin{equation}
+    \Phi(t) = \frac{f(t) - f(x)}{t - x} \quad (t \in (a, b), t \neq x),
+  \end{equation}
+  and define
+  \begin{equation}
+    f'(x) = \lim_{t \to x} \Phi(t).
+  \end{equation}
+\end{definition}
