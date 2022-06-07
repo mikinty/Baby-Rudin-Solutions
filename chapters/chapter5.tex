@@ -124,13 +124,59 @@ I've noticed the problems in this chapter tend to be pretty MVT (Mean Value Theo
 
 \bx{
   This is probably not formal, but since we know that $f'$ is continuous on $[a, b]$, we have that $f'(x)$ exists for $x \in [a, b]$, and that for small enough $\delta$, we can get
-  \begin{equation*}
+  \begin{equation}
     \frac{f(t) - f(x)}{t - x}
     \label{eq:5.8}
-  \end{equation*}
+  \end{equation}
   arbitrarily close to $f'(x)$.
 
-  The question then comes, why can't we do this when $f'$ \textit{isn't} continuous, and I think it's because without continuity, we can't show that the expression in \label{eq:5.8} can be arbitrarily close to $f'(x)$.
+  The question then comes, why can't we do this when $f'$ \textit{isn't} continuous, and I think it's because without continuity, we can't show that the expression in \ref{eq:5.8} can be arbitrarily close to $f'(x)$.
 
   Intuition says this holds for vector-valued functions since we have a finite number of coordinates and we just need to show the $\epsilon$ inequality holds for $n$ dimensions.
+}
+
+\bx{
+  Intuition says yes, because we have $f$ continuous, so we can consider the derivative
+  \begin{equation}
+    f'(0) = \lim_{t \to 0} \frac{f(t) - f(0)}{t}
+  \end{equation}
+  we can just use L'Hospital's rule here to prove this limit exists, but what if we wanted to do something different?
+
+  I think without L'Hospital's rule, I'm tempted to do a more topology-style proof where we consider $f'(0)$ as a limit point, and then try to show that it exists.
+  I suppose we'd have to prove that $f'(x)$ contains $f'(0)$, which might be a hard task.
+}
+
+\bx{
+  I think we pretty much just want to apply L'Hospital's rule to this, but beware that things are complex.
+  This looks like an algebra exercise after the hint...too lazy to do this.
+}
+
+\bx{
+  Express the fraction as two separate expressions each equal to $f''(x)$
+}
+
+\bx{
+  \begin{align}
+    f'(x)      & = \begin{cases}
+                     -3x^2, x < 0 \\
+                     3x^2,  x \geq 0
+                   \end{cases} \\
+    f''(x)     & = \begin{cases}
+                     -6x, x < 0 \\
+                     6x,  x \geq 0
+                   \end{cases}   \\
+    f^{(3)}(x) & = \begin{cases}
+                     -6, x < 0 \\
+                     6,  x \geq 0
+                   \end{cases}
+  \end{align}
+  We see for $f^{(3)}(0)$, we have different left and right approaching values.
+}
+
+Probs going to stop here, future chapters look really spicy and interesting.
+
+\bx{
+  \ea{
+    \item
+  }
 }
