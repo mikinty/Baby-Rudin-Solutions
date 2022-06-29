@@ -11,3 +11,9 @@ The PDF is located in the [`build/`](build/main.pdf) folder of the repo.
 ## Prereqs
 
 Despite Baby Rudin being an "intro to analysis," if you have no prior analysis experience, you should look for an even simpler intro such as [Understanding Analysis by Abbott](https://amzn.to/3wXODiO) ([solutions by me here](https://github.com/mikinty/Understanding-Analysis-Abbott-Solutions)).
+
+
+## Other Math Solutions by Me
+
+- [Principles of Analysis by Rudin](https://github.com/mikinty/Baby-Rudin-Solutions)
+- [Topology by Munkres](https://github.com/mikinty/Topology-Munkres-Solutions)
